@@ -1,47 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 const Stopwatch = () => {
-    const [startTime, setStartTime] = useState(0);
-    const [elapsedTime, setElapsedTime] = useState(0);
-    const [timer, setTimer] = useState(null);
+    const [startTime, setStartTime] = useState(null);
+    const [now, setNow] = useState(null);
+    const intervalRef = useRef(null);
 
-    const start = () => {
-        setStartTime(Date.now() - elapsedTime);
-        setTimer(setInterval(updateTime, 10));
-    };
+    function handleStart() {
+        setStartTime(Date.now());
+        setNow(Date.now());
 
-    const stop = () => {
-        clearInterval(timer);
-        setTimer(null);
-    };
+        clearInterval(intervalRef.current);
+        intervalRef.current = setInterval(() => {
+            setNow(Date.now());
+        }, 10);
+    }
 
-    const updateTime = () => {
-        setElapsedTime(Date.now() - startTime);
-    };
+    function handleStop() {
+        clearInterval(intervalRef.current);
+    }
 
-    useEffect(() => {
-        return () => clearInterval(timer);
-    }, [timer]);
-
-    const handleStartStop = () => {
-        if (timer) {
-            stop()
-        } else {
-            start();
-        }
-    };
+    let secondsPassed = 0;
+    if (startTime != null && now != null) {
+        secondsPassed = (now - startTime) / 1000;
+    }
 
     return (
-        <div>
-            <button onClick={handleStartStop}>
-                {timer ? 'Stop' : 'Start'}
+        <>
+            <p>Time passed: {secondsPassed.toFixed(2)} seconds</p>
+            <button onClick={handleStart}>
+                Start
             </button>
-            <span>{("0" + Math.floor((elapsedTime / 60000) % 60)).slice(-2)}:</span>
-            <span>{("0" + Math.floor((elapsedTime / 1000) % 60)).slice(-2)}.</span>
-            <span>{("0" + ((elapsedTime / 10) % 100)).slice(-2)}</span>
-        </div>
+            <button onClick={handleStop}>
+                Stop
+            </button>
+        </>
     );
-};
+}
+
 
 export default Stopwatch
 
