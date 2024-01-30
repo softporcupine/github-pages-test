@@ -53,6 +53,10 @@ const Talker = ({ elapsedTime }) => {
     useEffect(() => {
         const elapsedTimeInSeconds = Math.floor(elapsedTime);
 
+        if (elapsedTimeInSeconds == 0) {
+            setLastSpokenTime(elapsedTimeInSeconds);
+        }
+
         if (toSpeak[elapsedTimeInSeconds] && elapsedTimeInSeconds > lastSpokenTime) {
             console.log(toSpeak[elapsedTimeInSeconds]);
             const textToSpeak = new SpeechSynthesisUtterance(toSpeak[elapsedTimeInSeconds]);
