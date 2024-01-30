@@ -6,10 +6,10 @@ const Parent = () => {
     const [elapsedTime, setElapsedTime] = useState(0);
 
     return (
-        <div>
+        <main>
             <Stopwatch onTimeChange={setElapsedTime} />
             <Talker elapsedTime={elapsedTime} />
-        </div>
+        </main>
     )
 }
 
