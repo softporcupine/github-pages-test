@@ -6,11 +6,12 @@ const toSpeak = {
     7: "Hold",
     11: "Hold",
     14: "Hold",
-    16: "Release"
+    16: "Relax"
 }
 
 const Talker = ({ elapsedTime }) => {
     const [lastSpokenTime, setLastSpokenTime] = useState(0);
+    const [spokenWords, setSpokenWords] = useState("");
 
     useEffect(() => {
         const elapsedTimeInSeconds = Math.floor(elapsedTime);
@@ -20,6 +21,7 @@ const Talker = ({ elapsedTime }) => {
             const textToSpeak = new SpeechSynthesisUtterance(toSpeak[elapsedTimeInSeconds]);
             speechSynthesis.speak(textToSpeak);
             setLastSpokenTime(elapsedTimeInSeconds);
+            setSpokenWords(toSpeak[elapsedTimeInSeconds])
         }
 
         // Check if elapsed time is a multiple of 10
@@ -32,7 +34,7 @@ const Talker = ({ elapsedTime }) => {
 
     return (
         <div>
-            <pre>will speak every 10 seconds</pre>
+            <h1>{spokenWords}</h1>
         </div>
     )
 }
