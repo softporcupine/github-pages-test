@@ -35,10 +35,10 @@ const Stopwatch = ({ onTimeChange }) => {
     return (
         <>
             <p>Time passed: {secondsPassed.toFixed(2)} seconds</p>
-            <button onClick={handleStart}>
+            <button className="stopwatch--button-start" onClick={handleStart}>
                 Start
             </button>
-            <button onClick={handleStop}>
+            <button className="stopwatch--button-stop" onClick={handleStop}>
                 Stop
             </button>
         </>

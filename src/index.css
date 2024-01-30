@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.stopwatch--button-start {
+  border-radius: 8px;
+  padding: 16px 24px;
+  background-color: rgb(16, 171, 16);
+  color: #fff;
+  border: 1px solid rgba(27, 31, 35, .15);
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.stopwatch--button-stop {
+  border-radius: 8px;
+  padding: 16px 24px;
+  background-color: rgb(169, 41, 2);
+  color: #fff;
+  border: 1px solid rgba(246, 67, 28, 0.151);
+  cursor: pointer;
+  font-size: 16px;
+}
