@@ -40,12 +40,14 @@ const ScreenWakeLock = () => {
 
     return (
         <div>
-            <label>
-                <input
-                    type="checkbox"
-                    checked={isLocked}
-                    onChange={() => (isLocked ? releaseWakeLock() : requestWakeLock())}
-                />
+            <input
+                type="checkbox"
+                id="screen-wake-lock-checkbox"
+                style={{ marginRight: '10px' }}
+                checked={isLocked}
+                onChange={() => (isLocked ? releaseWakeLock() : requestWakeLock())}
+            />
+            <label htmlFor="screen-wake-lock-checkbox">
                 Keep screen on
             </label>
         </div>
