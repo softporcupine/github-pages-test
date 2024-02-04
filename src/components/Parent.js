@@ -5,7 +5,7 @@ import ScreenWakeLock from "./ScreenWakeLock";
 import Editor from "./Editor";
 
 const Parent = () => {
-    const [elapsedTime, setElapsedTime] = useState(0);
+    const [elapsedTimeSeconds, setElapsedTimeSeconds] = useState(0);
     const [showEditor, setShowEditor] = useState(false);
 
     function handleButton() {
@@ -17,8 +17,8 @@ const Parent = () => {
     if (showEditor) {
         mainScreen =
             <>
-                <Stopwatch onTimeChange={setElapsedTime} />
-                <Talker elapsedTime={elapsedTime} />
+                <Stopwatch onTimeChange={setElapsedTimeSeconds} />
+                <Talker elapsedTimeSeconds={elapsedTimeSeconds} />
                 <ScreenWakeLock />
             </>
         buttonText = "Edit speech"

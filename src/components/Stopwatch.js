@@ -2,39 +2,49 @@ import React, { useState, useRef, useEffect } from 'react';
 
 const Stopwatch = ({ onTimeChange }) => {
     const [startTime, setStartTime] = useState(null);
-    const [now, setNow] = useState(null);
+    const [elapsedTime, setElapsedTime] = useState(0);
+    const [elapsedTimeInSeconds, setElapsedTimeInSeconds] = useState(0);
     const intervalRef = useRef(null);
 
+    // Interval to update elapsedTime and elapsedTimeInSeconds
     useEffect(() => {
-        let secondsPassed = 0;
-        if (startTime != null && now != null) {
-            secondsPassed = (now - startTime) / 1000;
+        if (startTime) {
+            intervalRef.current = setInterval(() => {
+                const now = Date.now();
+                const newElapsedTime = now - startTime;
+                setElapsedTime(newElapsedTime);
+
+                const newElapsedTimeInSeconds = Math.floor(newElapsedTime / 1000);
+                if (newElapsedTimeInSeconds !== elapsedTimeInSeconds) {
+                    setElapsedTimeInSeconds(newElapsedTimeInSeconds);
+                    onTimeChange(newElapsedTimeInSeconds);
+                }
+            }, 10);
+
+            return () => {
+                onTimeChange(0);
+                return clearInterval(intervalRef.current)
+            };
         }
-        onTimeChange(secondsPassed);
-    }, [now, startTime, onTimeChange]);
+    }, [startTime, elapsedTimeInSeconds, onTimeChange]);
 
     function handleStart() {
         setStartTime(Date.now());
-        setNow(Date.now());
-
-        clearInterval(intervalRef.current);
-        intervalRef.current = setInterval(() => {
-            setNow(Date.now());
-        }, 10);
+        setElapsedTime(0);
+        setElapsedTimeInSeconds(0);
+        // Clear any existing interval to ensure no duplicates
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+        }
     }
 
     function handleStop() {
         clearInterval(intervalRef.current);
     }
 
-    let secondsPassed = 0;
-    if (startTime != null && now != null) {
-        secondsPassed = (now - startTime) / 1000;
-    }
-
     return (
         <>
-            <p>Time passed: {secondsPassed.toFixed(2)} seconds</p>
+            <p>Time passed: {(elapsedTime / 1000).toFixed(2)} seconds</p>
             <button className="stopwatch--button-start" onClick={handleStart}>
                 Start
             </button>

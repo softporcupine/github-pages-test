@@ -46,25 +46,23 @@ const toSpeak = {
     197: "All done, have a good day"
 }
 
-const Talker = ({ elapsedTime }) => {
+const Talker = ({ elapsedTimeSeconds }) => {
     const [lastSpokenTime, setLastSpokenTime] = useState(0);
     const [spokenWords, setSpokenWords] = useState("");
 
     useEffect(() => {
-        const elapsedTimeInSeconds = Math.floor(elapsedTime);
-
-        if (elapsedTimeInSeconds === 0) {
-            setLastSpokenTime(elapsedTimeInSeconds);
+        if (elapsedTimeSeconds === 0) {
+            setLastSpokenTime(elapsedTimeSeconds);
         }
 
-        if (toSpeak[elapsedTimeInSeconds] && elapsedTimeInSeconds > lastSpokenTime) {
-            console.log(toSpeak[elapsedTimeInSeconds]);
-            const textToSpeak = new SpeechSynthesisUtterance(toSpeak[elapsedTimeInSeconds]);
+        if (toSpeak[elapsedTimeSeconds] && elapsedTimeSeconds > lastSpokenTime) {
+            console.log(toSpeak[elapsedTimeSeconds]);
+            const textToSpeak = new SpeechSynthesisUtterance(toSpeak[elapsedTimeSeconds]);
             speechSynthesis.speak(textToSpeak);
-            setLastSpokenTime(elapsedTimeInSeconds);
-            setSpokenWords(toSpeak[elapsedTimeInSeconds])
+            setLastSpokenTime(elapsedTimeSeconds);
+            setSpokenWords(toSpeak[elapsedTimeSeconds])
         }
-    }, [elapsedTime, lastSpokenTime]);
+    }, [elapsedTimeSeconds, lastSpokenTime]);
 
     return (
         <div>
