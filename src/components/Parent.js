@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Stopwatch from "./stopwatch";
-import Talker from "./talker";
+import Stopwatch from "./Stopwatch";
+import Talker from "./Talker";
 import ScreenWakeLock from "./ScreenWakeLock";
 
 const Parent = () => {
