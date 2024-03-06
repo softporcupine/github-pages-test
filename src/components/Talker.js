@@ -46,6 +46,18 @@ const toSpeak = {
     197: "All done, have a good day"
 }
 
+const problems = {};
+let problemNum = 1;
+
+for (let key = 0; key < 900; key += 18) {
+    problems[key] = `Problem ${problemNum}`;
+    problemNum++;
+}
+
+problems[1] = 'Problem 1'
+console.log(problems);
+
+
 const Talker = ({ elapsedTimeSeconds }) => {
     const [lastSpokenTime, setLastSpokenTime] = useState(0);
     const [spokenWords, setSpokenWords] = useState("");
@@ -55,12 +67,12 @@ const Talker = ({ elapsedTimeSeconds }) => {
             setLastSpokenTime(elapsedTimeSeconds);
         }
 
-        if (toSpeak[elapsedTimeSeconds] && elapsedTimeSeconds > lastSpokenTime) {
-            console.log(toSpeak[elapsedTimeSeconds]);
-            const textToSpeak = new SpeechSynthesisUtterance(toSpeak[elapsedTimeSeconds]);
+        if (problems[elapsedTimeSeconds] && elapsedTimeSeconds > lastSpokenTime) {
+            console.log(problems[elapsedTimeSeconds]);
+            const textToSpeak = new SpeechSynthesisUtterance(problems[elapsedTimeSeconds]);
             speechSynthesis.speak(textToSpeak);
             setLastSpokenTime(elapsedTimeSeconds);
-            setSpokenWords(toSpeak[elapsedTimeSeconds])
+            setSpokenWords(problems[elapsedTimeSeconds])
         }
     }, [elapsedTimeSeconds, lastSpokenTime]);
 
